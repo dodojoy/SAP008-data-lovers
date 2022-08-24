@@ -61,7 +61,7 @@ const selectTag = document.querySelector('#funcao');
 selectTag.addEventListener('change', function() {
     const valorSelecionado = selectTag.value;
     let arrayCampeoesFiltrados = filterData(arrayCampeoes, valorSelecionado, 'tags');
-    printCards(arrayCampeoesFiltrados);
+    printCards(arrayCampeoesFiltrados)
     computerStats(valorSelecionado, arrayCampeoesFiltrados)
 })
 
