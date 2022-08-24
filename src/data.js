@@ -17,10 +17,24 @@ export const computerStats = (tags, champArray) => {
     let soma = ataque.reduce(function(soma, i){
       return soma + i;
     })
-    console.log(soma)
+    let media = (soma/champArray.length).toFixed(1);
+    return media;
+  } else if (tags === 'Support' || tags === 'Tank') {
+    let defesa = champArray.map((champ) => champ.info.defense);
+    let soma = defesa.reduce(function(soma, i) {
+      return soma + 1
+    })
+    let media = (soma/champArray.length).toFixed(1);
+    return media;
+  } else {
+    let magia = champArray.map((champ) => champ.info.magic);
+    let soma = magia.reduce(function(soma, i) {
+      return soma + 1
+    })
+    let media = (soma/champArray.length).toFixed(1);
+    return media;
   }
-  console.log(tags, champArray)}
-
+}
 //função para pegar o ataque, magia e defesa de todos os campeões conforme sua
 //função no jogo. ex: atirador - ataque, mago - magia, suporte - defesa;
 //pegar o valor de todos os atiradores, somar e dividir pela quantidade 
