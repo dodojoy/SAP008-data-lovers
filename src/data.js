@@ -1,7 +1,20 @@
-export const filterData = (data, requirement, filterType) => {
-  const filtroDaFuncao = (filterType === 'tags') ? data.filter(champion => champion.tags.includes(requirement)) : data.filter(champion => champion.difficulty.includes(requirement));
-  return filtroDaFuncao;
+export const filterDataByTag = (data, requirement) => {
+  const filtroDaTag = data.filter(champion => champion.tags.includes(requirement)) 
+  return filtroDaTag;
 };
+
+export const filterDataByDifficulty = (data, requirement) => {
+  const filtro = data.filter(champion => {
+    const difficulty = champion.info.difficulty;
+    const baixo = (requirement === 'baixo' && difficulty < 5);
+    const medio = (requirement === 'medio' && difficulty > 4 && difficulty < 8);
+    const alto = (requirement === 'alto' && difficulty > 7);
+    const hasDifficulty = baixo || medio || alto;
+    
+    return hasDifficulty;
+  })
+  return filtro;
+}
 
 export const sortData = (data) => data.sort((champ1, champ2) => {
   if (champ1.name > champ2.name) {
@@ -12,30 +25,23 @@ export const sortData = (data) => data.sort((champ1, champ2) => {
 })
 
 export const computerStats = (tags, champArray) => {
+  let infoType = '';
   if (tags === 'Marksman' || tags === 'Assassin' || tags === 'Fighter') {
-    let ataque = champArray.map((champ) => champ.info.attack);
-    let soma = ataque.reduce(function(soma, i){
-      return soma + i;
-    })
-    let media = (soma/champArray.length).toFixed(1);
-    return media;
+    infoType = 'attack';
   } else if (tags === 'Support' || tags === 'Tank') {
-    let defesa = champArray.map((champ) => champ.info.defense);
-    let soma = defesa.reduce(function(soma, i) {
-      return soma + 1
-    })
-    let media = (soma/champArray.length).toFixed(1);
-    return media;
+    infoType = 'defense';
   } else {
-    let magia = champArray.map((champ) => champ.info.magic);
-    let soma = magia.reduce(function(soma, i) {
-      return soma + 1
-    })
-    let media = (soma/champArray.length).toFixed(1);
-    return media;
+    infoType = 'magic';
   }
+  
+  const valores = champArray.map((champ) => champ.info[infoType]);
+  const soma = valores.reduce(function(soma, i){
+    return soma + i;
+  })
+  const media = (soma/champArray.length).toFixed(1);
+  
+  return {
+    type: infoType,
+    media: media
+  };
 }
-//função para pegar o ataque, magia e defesa de todos os campeões conforme sua
-//função no jogo. ex: atirador - ataque, mago - magia, suporte - defesa;
-//pegar o valor de todos os atiradores, somar e dividir pela quantidade 
-//de campeoes atiradores.
