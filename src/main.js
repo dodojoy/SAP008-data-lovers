@@ -1,4 +1,4 @@
-import {computerStats, filterData, sortData} from "./data.js";
+import {computerStats, filterDataByTag, filterDataByDifficulty, sortData} from "./data.js";
 import data from './data/lol/lol.js';
 
 let arrayCampeoes = Object.values(data.data);
@@ -7,6 +7,9 @@ const btnSobre = document.querySelector('#btn-sobre');
 const main = document.querySelector("#main-content");
 const modal = document.querySelector("#modal");
 const cards = document.querySelector('#cards');
+const selectTag = document.querySelector('#funcao');
+const selectAZ = document.querySelector('#sort');
+
 btnSobre.addEventListener('click', function(){
     modal.style.display = 'flex';
     main.style.display = 'none';
@@ -35,7 +38,7 @@ btnIniciar.addEventListener('click', function(){
 
 function printCards(lol) {
     document.getElementById('cardzinho').innerHTML = lol.map((key) => 
-        `
+        `  
             <div class="card-container">
                 <div class="card-front">
                     <img src="${key.splash}">
@@ -51,37 +54,32 @@ function printCards(lol) {
                     <h2>${key.name}</h2>
             </div>
         `    
-    )
+    ).join('')
 }
 
 window.addEventListener('load', () => printCards(arrayCampeoes));
 
-
-const selectTag = document.querySelector('#funcao');
 selectTag.addEventListener('change', function() {
     const valorSelecionado = selectTag.value;
-    let arrayCampeoesFiltrados = filterData(arrayCampeoes, valorSelecionado, 'tags');
+    let arrayCampeoesFiltrados = filterDataByTag(arrayCampeoes, valorSelecionado);
     printCards(arrayCampeoesFiltrados)
-    computerStats(valorSelecionado, arrayCampeoesFiltrados)
+    const stats = computerStats(valorSelecionado, arrayCampeoesFiltrados);
+    const divMedia = document.querySelector('#media') 
+    divMedia.innerHTML = 'A média de ' + stats.type + ' dos ' + valorSelecionado + ' é de ' + stats.media;
+    // if (valorSelecionado === 'Assassin') {
+    //     valorSelecionado = 'assassino';
+    // } else if (valorSelecionado === 'Marksman') {
+    //     divMedia.innerHTML = 'A média de ataque dos atiradores é de '  + stats.media;
+    // }
 })
 
-// const selectDiff = document.querySelector('#dificuldade');
-// selectDiff.addEventListener('change', function() {
-//     const diffSelecionado = selectDiff.value;
-//     if (diffSelecionado === 'baixo'){
-//         printCards(filterData(arrayCampeoes, 1, 'difficulty'))
-//     }
-// })
+const selectDiff = document.querySelector('#dificuldade');
+selectDiff.addEventListener('change', function() {
+    const diffSelecionado = selectDiff.value;
+    const filtrado = filterDataByDifficulty(arrayCampeoes, diffSelecionado);
+    printCards(filtrado);
+})
 
-// const selectDiff = document.querySelector('#dificuldade');
-// selectDiff.addEventListener('change', function() {
-//     const diffSelecionado = selectDiff.value;
-//     if (diffSelecionado === 'baixo'){
-//         printCards(filterData(arrayCampeoes, 1, 'difficulty'))
-//     }
-// })
-
-const selectAZ = document.querySelector('#sort');
 selectAZ.addEventListener('change', function() {
     const sortSelecionado = selectAZ.value;
     const ordem = sortData(arrayCampeoes);
