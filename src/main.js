@@ -64,7 +64,7 @@ selectTag.addEventListener('change', function() {
     let arrayCampeoesFiltrados = filterDataByTag(arrayCampeoes, valorSelecionado);
     printCards(arrayCampeoesFiltrados)
     const stats = computerStats(valorSelecionado, arrayCampeoesFiltrados);
-    const divMedia = document.querySelector('#media') 
+    const divMedia = document.querySelector('#media');
     divMedia.innerHTML = 'A média de ' + stats.type + ' dos ' + valorSelecionado + ' é de ' + stats.media;
     // if (valorSelecionado === 'Assassin') {
     //     valorSelecionado = 'assassino';
