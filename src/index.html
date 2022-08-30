@@ -33,14 +33,13 @@
         </div>
         <button id="btn-voltar" class="voltar">VOLTAR</button>
       </section>
-      <section id="cards">
+      <section id="cards" class="cards">
         <div class="titulo-card-page">
           <h1>ESCOLHENDO SEU CAMPEÃO</h1>
         </div>
-        <form>
-          <label for="funcao">TODAS AS FUNÇÕES</label>
-          <select name="tipo-de-campeao" id="funcao">
-            <option desable></option>
+        <form class="form">
+          <select name="tipo-de-campeao" id="funcao" class="tags">
+            <option desable>TODAS AS FUNÇÕES</option>
             <option value="Assassin">ASSASSINOS</option>
             <option value="Fighter">LUTADORES</option>
             <option value="Mage">MAGOS</option>
@@ -48,20 +47,19 @@
             <option value="Support">SUPORTES</option>
             <option value="Tank">TANQUES</option>
           </select>
-          <label for="dificuldade">NÍVEL DE DIFICULDADE</label>
-          <select name="nivel-de-dificuldade" id="dificuldade">
+          <select name="nivel-de-dificuldade" id="dificuldade" class="diff">
+            <option disable>NÍVEL DE DIFICULDADE</option>
             <option value="baixo">BAIXO</option>
             <option value="medio">MÉDIO</option>
             <option value="alto">ALTO</option>
           </select>
-          <label for="sort-champ">Ordenando</label>
-          <select name="ordenando" id="sort">
+          <select name="ordenando" id="sort" class="sort">
             <option value="az">A-Z</option>
             <option value="za">Z-A</option>
           </select>
         </form>
-        <div id="media"></div>
-        <div id="cardzinho"></div>
+        <div id="media" class="media"></div>
+        <div id="allCards" class="all-cards"></div>
       </section>
       <footer>
         <div class="navbar-footer">
