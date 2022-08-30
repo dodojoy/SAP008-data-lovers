@@ -1,6 +1,13 @@
+@font-face {
+    font-family: 'Noto Sans', sans-serif;
+    src: url(http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic&subset=latin,latin-ext)
+    format('truetype');
+}
+
 html, body {
     margin: 0;
     padding: 0;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .topo {
@@ -29,12 +36,21 @@ html, body {
 
 
 .navbar {
-    width: 11.2rem;
+    width: 6rem;
     position: relative right;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     position: absolute;
     right: 1.8rem;
+    align-items: center;
+}
+
+@media (min-width: 700px) {
+    .navbar {
+        width: 11.5rem;
+        flex-direction: row;
+    }
 }
 
 .navbar .btn-sobre {
@@ -58,23 +74,9 @@ html, body {
     display: none;
 }
 
-.hamb1, .hamb2, .hamb3 {
-    width: 0.8rem;
-    height: 0.1rem;
-    background-color: #F9F9F9;
-    margin: 0.1rem 0;
-    transition: 0.4s;
+h1, h2 {
+    font-weight: 500;
 }
-
-
-/* @media (max-width: 600px) {
-    .mobile-navbar {
-        display: block;
-    }
-    .navbar {
-        display: none;
-    }
-} */
 
 #main-content {
     width: 100%;
@@ -155,55 +157,162 @@ html, body {
     text-align: justify;
 }
 
-#cards {
+.cards {
     width: 100%;
-    height: 100vh;
+    height: auto;
     background-color: #F9F9F9;
     display: none;
     flex-direction: column;
     align-items: center;
 }
 
-#cards .titulo-carde-page {
+.cards .titulo-card-page {
+    width: 11.1rem;
+    margin: 3rem 0 2rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    height: 2rem;
+    border-top: 1px solid;
+}
+
+.form .tags , .form .diff, .form .sort {
+    font-size: 0.61rem;
+    border: none;
+    color: #C2902D;
+    background-color: #F9F9F9;
+}
+
+.form .tags, .form .diff {
+    max-width: 8rem;
+    margin-right: 0.8rem;
+}
+
+.media {
+}
+
+.form, .media {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    width: 10rem;
-}
-
-.titulo-carde-page h1 {
-
-}
-
-#cardzinho {
+    color: #C2902D;
     width: 100%;
-    height: auto;
+    border-bottom: 1px solid;
+    border-color: #A7A1A1;
+}
+
+.all-cards {
+    width: auto;
+    margin: 0;
+    padding: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5rem;
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
-.card-container {
+@media (min-width: 750px) {
+    .cards .titulo-card-page {
+        min-width: 19rem;
+    }
+
+    .titulo-card-page h1 {
+        font-size: 2.5rem;
+    }
+    
+    .all-cards {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .form .tags, .form .diff, .form .sort {
+        font-size: 1rem;
+    }
+    
+    .form .tags {
+        min-width: 12rem;
+    }
+
+    .form .diff {
+        min-width: 13rem;
+    }
+
+    .titulo-card-page {
+        min-width: 12rem;
+    }
+
+    .card-front, .card-hover {
+        min-width: 15rem;
+        min-height: 18rem;
+    }
+
+    .card-front img, .card-hover ul {
+        min-width: 15rem;
+        min-height: 17rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    .cards {
+        min-width: 100%
+    }
+
+    .all-cards {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+.all-cards h2 {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 2rem;
+    color: #F9F9F9;
+    font-size: medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-front, .card-hover {
     width: 10rem;
-    height: 12.5rem;
     background-color: #061C25;
+    padding: 0;
 }
 
-.card-container img {
+.card-front {
+    display: block;
+}
+
+.card-front img, .card-hover ul {
     width: 10rem;
     height: 10.5rem;
-    /* object-fit: cover; */
-}
-
-.card-container h2 {
-    width: 100%;
-    margin: 0%;
-    color: #F9F9F9;
-    text-align: center;
-    font-size: medium;
-    font-weight: 700;
+    margin: 0;
+    padding: 0;
 }
 
 .card-hover {
+    background-color: #006680;
     display: none;
+}
+
+.card-hover ul {
+    list-style: none;
+    color: #F9F9F9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.card-hover li {
+    border-bottom: solid 2px #C2902D;
+}
+
+.card-hover h2 {
+    background-color: #061C25;
 }
 
 footer {
@@ -244,4 +353,3 @@ footer {
     display: flex;
     flex-direction: column;
 }
-
