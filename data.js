@@ -14,7 +14,7 @@ export const filterDataByDifficulty = (data, requirement) => {
     return hasDifficulty;
   })
   return filtro;
-}
+};
 
 export const sortData = (data) => data.sort((champ1, champ2) => {
   if (champ1.name > champ2.name) {
@@ -22,7 +22,7 @@ export const sortData = (data) => data.sort((champ1, champ2) => {
   } else if (champ1.name < champ2.name) {
     return 1;
   }
-})
+});
 
 export const computerStats = (tags, champArray) => {
   let infoType = '';
@@ -44,4 +44,4 @@ export const computerStats = (tags, champArray) => {
     type: infoType,
     media: media
   };
-}
+};
