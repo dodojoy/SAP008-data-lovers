@@ -1,9 +1,8 @@
-import {filterDataByTag, filterDataByDifficulty, sortData, computerStats} from '../src/data.js';
+import {filterTagOrName, filterDataByDifficulty, sortData, computerStats} from '../src/data.js';
 
 
-describe('filterDataByTag', () => {
-  
-it('Deveria retornar os campeões que contém a tag Suporte', () => {
+describe('filterTagOrName', () => {
+  it('Deveria retornar os campeões que contém a tag Suporte', () => {
     const dados = [
       {
         name: "Nami",
@@ -44,12 +43,49 @@ it('Deveria retornar os campeões que contém a tag Suporte', () => {
         ]
       }
     ];
-    expect(filterDataByTag(dados, "Support")).toStrictEqual(resultado);
+    expect(filterTagOrName(dados, "Support", 'tags')).toStrictEqual(resultado);
+  });
+
+  it('Deveria retornar os campeões com as letras digitadas', () => {
+    const dados = [
+      {
+        name: "Nami",
+        tags: [
+          "Support",
+          "Mage"
+        ]
+      },
+      {
+        name: "Blitzcrank",
+        tags: [
+          "Tank",
+          "Fighter"
+        ]
+      },
+      {
+        name: "Taric",
+        tags: [
+          "Support",
+          "Fighter"
+        ]
+      }
+    ];
+    
+    const resultado = [
+      {
+        tags: [
+          "Support",
+          "Mage"
+        ],
+        name: "Nami"
+      },
+    ];
+    expect(filterTagOrName(dados, 'Na', 'name')).toStrictEqual(resultado);
   });
 });
 
 describe('filterDataByDifficulty', () => {
-  it('Deveria retornar os campeões com base na sua dificuldade', () => {
+  it('Deveria retornar os campeões dificuldade baixa', () => {
     const dados = [
       {
         name: "Nami",
@@ -106,14 +142,151 @@ describe('filterDataByDifficulty', () => {
     }];
     expect(filterDataByDifficulty(dados, 'baixo')).toStrictEqual(resultado);
   })
+
+  it('Deveria retornar os campeões com dificuldade media', () => {
+    const dados = [
+      {
+        name: "Nami",
+        tags: [
+          "Support",
+          "Mage"
+        ],
+        info: {
+          attack: 8,
+          defense: 4,
+          magic: 3,
+          difficulty: 5
+        }
+      },
+      {
+        name: "Blitzcrank",
+        tags: [
+          "Tank",
+          "Fighter"
+        ],
+        info: {
+          attack: 3,
+          defense: 4,
+          magic: 8,
+          difficulty: 6
+        }
+      },
+      {
+        name: "Taric",
+        tags: [
+          "Support",
+          "Fighter"
+        ],
+        info: {
+          attack: 3,
+          defense: 4,
+          magic: 8,
+          difficulty: 10
+        }
+      }];
+    
+    const resultado = [{
+      name: "Nami",
+      tags: [
+        "Support",
+        "Mage"
+      ],
+      info: {
+        attack: 8,
+        defense: 4,
+        magic: 3,
+        difficulty: 5
+      }
+    },
+    {
+      name: "Blitzcrank",
+      tags: [
+        "Tank",
+        "Fighter"
+      ],
+      info: {
+        attack: 3,
+        defense: 4,
+        magic: 8,
+        difficulty: 6
+      }
+    }];
+    expect(filterDataByDifficulty(dados, 'medio')).toStrictEqual(resultado);
+  })
+
+  it('Deveria retornar os campeões com dificuldade alta', () => {
+    const dados = [
+      {
+        name: "Nami",
+        tags: [
+          "Support",
+          "Mage"
+        ],
+        info: {
+          attack: 8,
+          defense: 4,
+          magic: 3,
+          difficulty: 5
+        }
+      },
+      {
+        name: "Blitzcrank",
+        tags: [
+          "Tank",
+          "Fighter"
+        ],
+        info: {
+          attack: 3,
+          defense: 4,
+          magic: 8,
+          difficulty: 9
+        }
+      },
+      {
+        name: "Taric",
+        tags: [
+          "Support",
+          "Fighter"
+        ],
+        info: {
+          attack: 3,
+          defense: 4,
+          magic: 8,
+          difficulty: 10
+        }
+      }];
+    
+    const resultado = [{
+      name: "Blitzcrank",
+      tags: [
+        "Tank",
+        "Fighter"
+      ],
+      info: {
+        attack: 3,
+        defense: 4,
+        magic: 8,
+        difficulty: 9
+      }
+    },
+    {
+      name: "Taric",
+      tags: [
+        "Support",
+        "Fighter"
+      ],
+      info: {
+        attack: 3,
+        defense: 4,
+        magic: 8,
+        difficulty: 10
+      }
+    }];
+    expect(filterDataByDifficulty(dados, 'alto')).toStrictEqual(resultado);
+  })
 })
 
 describe('sortData', () => {
-  it('Deveria ser uma função', () => {
-    expect(typeof sortData).toBe('function');
-  });
-
-
   it('Deveria retornar os campeões em ordem decrescente', () => {
     const dados = [
       {
@@ -145,10 +318,11 @@ describe('sortData', () => {
     ];
     expect(sortData(dados)).toStrictEqual(resultado)
   });
+
 })
 
 describe ('computerStats', () => {
-  it('Deveria retornar a média do ataque, magia ou defesa do campeão de acordo com sua função', () => {
+  it('Deveria retornar a média de defesa dos suportes', () => {
     const dados = 
     [
       {
