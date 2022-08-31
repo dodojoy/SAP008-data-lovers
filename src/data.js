@@ -1,6 +1,7 @@
-export const filterDataByTag = (data, requirement) => {
-  const filtroDaTag = data.filter(champion => champion.tags.includes(requirement)) 
-  return filtroDaTag;
+export const filterTagOrName = (data, requirement, filterType) => {
+  const filtro = (filterType==='tags') ? data.filter(champion => champion.tags.includes(requirement))
+  : data.filter(champName => champName.name.includes(requirement))
+  return filtro;
 };
 
 export const filterDataByDifficulty = (data, requirement) => {
@@ -45,3 +46,4 @@ export const computerStats = (tags, champArray) => {
     media: media
   };
 };
+
