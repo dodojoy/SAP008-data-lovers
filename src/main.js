@@ -1,4 +1,4 @@
-import {computerStats, filterDataByTag, filterDataByDifficulty, sortData} from "./data.js";
+import {computerStats, filterTagOrName, filterDataByDifficulty, sortData} from "./data.js";
 import info from "./translate.js";
 import data from './data/lol/lol.js';
 
@@ -13,6 +13,8 @@ const selectAZ = document.querySelector('#sort');
 const btnVoltar = document.querySelector('#btn-voltar');
 const voltarFooter = document.querySelector('#voltar-footer');
 const btnIniciar = document.querySelector('#iniciar');
+const search = document.querySelector('#findByName');
+
 
 btnSobre.addEventListener('click', function(){
     modal.style.display = 'flex';
@@ -40,18 +42,22 @@ btnIniciar.addEventListener('click', function(){
 function printCards(lol) {
     document.getElementById('allCards').innerHTML = lol.map((key) => 
         `  
-            <div id="cardFront" class="card-front">
-                <img src="${key.splash}">
-                <h2>${key.name.toUpperCase()}</h2>
-            </div>
-            <div id="cardBack" class="card-hover">
-                <ul>
-                    <li>ATAQUE: ${key.info.attack}</li>
-                    <li>DEFESA: ${key.info.defense}</li>
-                    <li>MAGIA: ${key.info.magic}</li>
-                    <li>DIFICULDADE: ${key.info.difficulty}</li>
-                </ul>
-                <h2>${key.name.toUpperCase()}</h2>
+            <div class="card-container">
+                <div class="card-container-inner">
+                    <div id="cardFront" class="card-front">
+                        <img src="${key.splash}">
+                        <h2>${key.name.toUpperCase()}</h2>
+                    </div>
+                    <div id="cardBack" class="card-hover">
+                        <ul>
+                            <li>ATAQUE: ${key.info.attack}</li>
+                            <li>DEFESA: ${key.info.defense}</li>
+                            <li>MAGIA: ${key.info.magic}</li>
+                            <li>DIFICULDADE: ${key.info.difficulty}</li>
+                        </ul>
+                        <h2>${key.name.toUpperCase()}</h2>
+                    </div>
+                </div>
             </div>
         `       
     ).join('')
@@ -73,7 +79,7 @@ function mapByTag(valorSelecionado, info, value) {
 
 selectTag.addEventListener('change', function() {
     const valorSelecionado = selectTag.value;
-    let arrayCampeoesFiltrados = filterDataByTag(arrayCampeoes, valorSelecionado);
+    let arrayCampeoesFiltrados = filterTagOrName(arrayCampeoes, valorSelecionado, 'tags');
     const divMedia = document.querySelector('#media');
     if (valorSelecionado === 'TODAS AS FUNÇÕES') {
         printCards(arrayCampeoes)
@@ -82,8 +88,7 @@ selectTag.addEventListener('change', function() {
         printCards(arrayCampeoesFiltrados)
         const stats = computerStats(valorSelecionado, arrayCampeoesFiltrados);
         const result = mapByType(stats, info, stats.type);
-        const champTag = mapByTag(valorSelecionado, info, valorSelecionado)
-        console.log(result)
+        const champTag = mapByTag(valorSelecionado, info, valorSelecionado);
         divMedia.innerHTML = 'A média de ' + result + ' dos ' + champTag + ' é de ' + stats.media;
         divMedia.style.display = 'flex';
     }
@@ -107,5 +112,16 @@ selectAZ.addEventListener('change', function() {
         printCards(ordem.reverse())
     } else {
         printCards(ordem)
+    }
+})
+
+search.addEventListener('keyup', function() {
+    const searchValue = search.value;
+    const firstLetterToUpperCase = searchValue[0].toUpperCase();
+    const newValue = firstLetterToUpperCase + searchValue.substring(1).toLowerCase();
+    if (searchValue !== undefined) {
+        return printCards(filterTagOrName(arrayCampeoes, newValue, 'name'));
+    } else {
+        return printCards(arrayCampeoes);
     }
 })
