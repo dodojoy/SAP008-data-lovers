@@ -277,14 +277,19 @@ h1, h2 {
         min-width: 12rem;
     }
 
+    .card-container {
+        width: 15rem;
+        height: 19rem;
+    }
+
     .card-front, .card-hover {
-        min-width: 15rem;
-        min-height: 18rem;
+        width: 100%;
+        height: 100%;
     }
 
     .card-front img, .card-hover ul {
-        min-width: 15rem;
-        min-height: 17rem;
+        width: 15rem;
+        height: 17rem;
     }
 }
 
@@ -295,6 +300,16 @@ h1, h2 {
 
     .all-cards {
         grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .card-container {
+        width: 16rem;
+        height: 20rem;
+    }
+
+    .card-front img, .card-hover ul {
+        width: 16rem;
+        height: 18rem;
     }
 }
 
@@ -310,14 +325,30 @@ h1, h2 {
     justify-content: center;
 }
 
-.card-front, .card-hover {
+.card-container {
     width: 10rem;
-    background-color: #061C25;
-    padding: 0;
+    height: 12.5rem;
 }
 
-.card-front {
-    display: block;
+.card-container-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.card-container:hover .card-container-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-hover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #061C25;
+    padding: 0;
+    backface-visibility: hidden;
 }
 
 .card-front img, .card-hover ul {
@@ -327,9 +358,13 @@ h1, h2 {
     padding: 0;
 }
 
+.card-front h2 {
+    height: 2rem;
+}
+
 .card-hover {
     background-color: #006680;
-    display: none;
+    transform: rotateY(180deg);
 }
 
 .card-hover ul {
@@ -337,17 +372,18 @@ h1, h2 {
     color: #F9F9F9;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    margin: 1.5rem 0;
 }
 
 .card-hover li {
     border-bottom: solid 2px #C2902D;
+    font-size: smaller;
 }
 
 .card-hover h2 {
     background-color: #061C25;
+    height: 2rem;
 }
 
 footer {
@@ -389,33 +425,3 @@ footer {
     flex-direction: column;
 }
 
-/* .card-container {
-    background-color: transparent;
-    width: 300px;
-    height: 200px;
-    perspective: 1000px;
-  }
-  
-  .card-container-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-  }
-
-  .card-container:hover .card-container-inner {
-    transform: rotateY(180deg);
-  }
-
-  .card-front, .card-hover {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
-    /* backface-visibility: hidden;
-  }
-
-  .card-hover {
-    transform: rotateY(180deg);
-  } */ 
