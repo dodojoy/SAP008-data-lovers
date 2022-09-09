@@ -86,10 +86,10 @@ h1, h2 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url(./img/jinx\ background2.png);
+    background-image: url(./img/jinx.png);
     background-repeat: no-repeat;
-    background-position: bottom right;
-    background-size: 20rem;
+    background-position: bottom left;
+    background-size: 18rem;
 }
 
 #main-content h1 {
